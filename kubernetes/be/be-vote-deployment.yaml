@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-vote-deployment
+spec:
+  selector:
+    matchLabels:
+      app: be-vote
+  template:
+    metadata:
+      labels:
+        app: be-vote
+        type: backend
+    spec:
+      containers:
+        - name: be-vote
+          image: be-vote
+          imagePullPolicy: Never
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          ports: 
+            - containerPort: 80 
+          env: 
+            - name: NODE_ENV
+              value: kube
+      restartPolicy: Always
+  replicas: 1

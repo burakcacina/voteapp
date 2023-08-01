@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-vote
+spec:
+  selector: 
+    matchLabels:
+      app: fe-vote
+  template:
+    metadata:
+      labels:
+        app: fe-vote
+        type: frontend
+    spec:
+      containers:
+        - name: fe-vote
+          image: fe-vote
+          imagePullPolicy: Never
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+  replicas: 1

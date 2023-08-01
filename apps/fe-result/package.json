@@ -1,0 +1,25 @@
+{
+  "name": "fe-result",
+  "version": "1.0.0",
+  "description": "result app",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "watch": "webpack watch --mode=development"
+  },
+  "devDependencies": {
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "sass": "^1.62.1",
+    "webpack-cli": "^5.1.1",
+    "css-loader": "^6.8.1",
+    "sass-loader": "^13.3.1",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.3",
+    "webpack": "^5.84.1"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.10.5"
+  }
+}

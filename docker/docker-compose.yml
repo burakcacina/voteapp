@@ -1,0 +1,89 @@
+services:
+  backend:
+    image: be-vote
+    container_name: be-vote
+    build:
+      dockerfile: ../be-vote/Dockerfile
+      context: ../apps/be-vote/
+    ports:
+      - 8089:80
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=docker
+  voteapps:
+    container_name: fe-vote
+    image: fe-vote
+    build:
+      context: ../apps/fe-vote
+    ports:
+      - 7001:80
+    depends_on:
+      - backend
+    restart: always
+  result:
+    container_name: fe-result
+    image: fe-result
+    build:
+      context: ../apps/fe-result
+    ports:
+      - 7002:80
+    depends_on:
+      - backend
+    restart: always
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [CMD, "redis-cli", "ping"]
+      interval: 3s
+      timeout: 20s
+      retries: 10
+      start_period: 20s
+    volumes:
+      - ./volumes/redis-volume:/data
+    restart: always
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    ports:
+      - 27018:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+    volumes:
+      - ./volumes/mongo-volume:/data/db
+    restart: always
+  pontainer:
+    container_name: pontainer
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9000:9000
+    volumes:
+      - ./volumes/pontainer-volume:/data
+    restart: always
+  portainer_agent:
+    container_name: portainer_agent
+    image: portainer/agent:latest
+    ports:
+      - 9001:9001
+    restart: always
+    volumes:
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  redis-volume:
+  mongo-volume:
+  pontainer-volume:

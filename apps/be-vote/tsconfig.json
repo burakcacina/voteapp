@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "target": "ESNext",
+    "lib": ["esnext"],
+    "rootDir": "./src",
+    "preserveWatchOutput": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

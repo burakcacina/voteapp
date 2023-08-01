@@ -1,0 +1,66 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vote</title>
+</head>
+
+<body>
+  <div class="center h-100">
+    <div class="card" style="width: 36rem">
+      <div class="card-body" style="min-height: 250px">
+        <div class="header">
+          <h5 class="card-subtitle mb-2 text-body-secondary">What would you like to do?</h5>
+        </div>
+        <div class="user-opt-box">
+          <div class="box hidden" id="vote-type">
+            <h5>Vote for option</h5>
+          </div>
+          <div class="divider hidden"></div>
+          <div class="box active" id="create-vote">
+            <h5>Create new vote</h5>
+          </div>
+        </div>
+        <div class="collapse show">
+          <div id="vote-type-form" class="hidden">
+            <form>
+              <h5 class="card-title">Choose vote type</h5>
+              <select class="form-select" id="vote-type">
+                <option selected disabled> Select vote type to vote
+                </option>
+              </select>
+              <ul class="list-group list-group-flush my-3">
+              </ul>
+              <button class="btn btn-primary w-100 hidden disabled" type="button">Submit</button>
+            </form>
+          </div>
+          <div id="create-vote-form">
+            <form>
+              <h5 class="card-title">What would you like to Vote?</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">
+                Create Vote below!
+              </h6>
+              <div class="mb-3">
+                <label for="voteType" class="form-label">Vote name</label>
+                <input type="text" class="form-control" id="voteType" />
+              </div>
+              <div class="vote-opt mb-3">
+                <div class="vote-detail">
+                  <label for="voteType" class="form-label mx-1">Vote option</label>
+                  <i class="addBtn bi bi-plus-circle"></i>
+                </div>
+                <div class="option d-flex align-items-center mb-3" id="1">
+                  <input type="text" class="form-control" id="voteType" placeholder="Option detail" />
+                </div>
+              </div>
+              <button class="btn btn-primary w-100" type="button">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          resources:
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
+            requests:
+              memory: "512Mi"
+              cpu: "300m"
+          ports:
+            - containerPort: 27017
+          livenessProbe:
+            exec:
+              command:
+                - echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+            failureThreshold: 10
+            initialDelaySeconds: 40
+            periodSeconds: 3
+            timeoutSeconds: 10
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: mongoadmin
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: secret
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: mongo-volume
+              mountPath: /data/db
+      volumes: 
+        - name: mongo-volume
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  selector:
+    app: mongo
+  clusterIP: 10.105.0.3
+  type: LoadBalancer
+  ports:
+  - port: 27018
+    targetPort: 27017
+
+    
+

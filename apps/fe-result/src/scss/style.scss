@@ -1,0 +1,31 @@
+@import "reset.scss";
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.main {
+  min-height: 250px;
+  height: 500px;
+  overflow-y: auto;
+  width: 40rem;
+
+  .flex-auto {
+    flex: 1;
+
+    button {
+      width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 40px;
+      white-space: nowrap;
+    }
+  }
+}

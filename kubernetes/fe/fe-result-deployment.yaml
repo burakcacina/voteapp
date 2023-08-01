@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-result
+spec:
+  selector: 
+    matchLabels:
+      app: fe-result
+  template:
+    metadata:
+      labels:
+        app: fe-result
+        type: frontend
+    spec:
+      containers:
+        - name: fe-result
+          image: fe-result
+          imagePullPolicy: Never
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+  replicas: 1
